@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CAD_API.Filters;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
@@ -17,6 +18,8 @@ namespace CAD_API
 
             var appXmlType = config.Formatters.XmlFormatter.SupportedMediaTypes.FirstOrDefault(t => t.MediaType == "application/xml");
             config.Formatters.XmlFormatter.SupportedMediaTypes.Remove(appXmlType);
+
+            //GlobalConfiguration.Configuration.Filters.Add(new ApiAuthenticationFilter());
         }
     }
 }

@@ -1,0 +1,694 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="CADModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="CADModelStoreContainer">
+          <EntitySet Name="Account" EntityType="CADModel.Store.Account" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Attendee" EntityType="CADModel.Store.Attendee" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="BusinessUnit" EntityType="CADModel.Store.BusinessUnit" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="BusinessUnit_Promotion" EntityType="CADModel.Store.BusinessUnit_Promotion" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="BusinessUnitReview" EntityType="CADModel.Store.BusinessUnitReview" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Location" EntityType="CADModel.Store.Location" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="PersonInfo" EntityType="CADModel.Store.PersonInfo" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Promotion" EntityType="CADModel.Store.Promotion" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Token" EntityType="CADModel.Store.Token" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK__Attendee__Promot__6E01572D" Association="CADModel.Store.FK__Attendee__Promot__6E01572D">
+            <End Role="PersonInfo" EntitySet="PersonInfo" />
+            <End Role="Attendee" EntitySet="Attendee" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Attendee__Promot__6EF57B66" Association="CADModel.Store.FK__Attendee__Promot__6EF57B66">
+            <End Role="Promotion" EntitySet="Promotion" />
+            <End Role="Attendee" EntitySet="Attendee" />
+          </AssociationSet>
+          <AssociationSet Name="FK__BusinessU__Accou__2A164134" Association="CADModel.Store.FK__BusinessU__Accou__2A164134">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="BusinessUnit" EntitySet="BusinessUnit" />
+          </AssociationSet>
+          <AssociationSet Name="FK__BusinessU__Busin__00200768" Association="CADModel.Store.FK__BusinessU__Busin__00200768">
+            <End Role="BusinessUnit" EntitySet="BusinessUnit" />
+            <End Role="BusinessUnit_Promotion" EntitySet="BusinessUnit_Promotion" />
+          </AssociationSet>
+          <AssociationSet Name="FK__BusinessU__Busin__48CFD27E" Association="CADModel.Store.FK__BusinessU__Busin__48CFD27E">
+            <End Role="BusinessUnit" EntitySet="BusinessUnit" />
+            <End Role="BusinessUnitReview" EntitySet="BusinessUnitReview" />
+          </AssociationSet>
+          <AssociationSet Name="FK__BusinessU__Locat__35BCFE0A" Association="CADModel.Store.FK__BusinessU__Locat__35BCFE0A">
+            <End Role="Location" EntitySet="Location" />
+            <End Role="BusinessUnit" EntitySet="BusinessUnit" />
+          </AssociationSet>
+          <AssociationSet Name="FK__BusinessU__Perso__47DBAE45" Association="CADModel.Store.FK__BusinessU__Perso__47DBAE45">
+            <End Role="PersonInfo" EntitySet="PersonInfo" />
+            <End Role="BusinessUnitReview" EntitySet="BusinessUnitReview" />
+          </AssociationSet>
+          <AssociationSet Name="FK__BusinessU__Promo__01142BA1" Association="CADModel.Store.FK__BusinessU__Promo__01142BA1">
+            <End Role="Promotion" EntitySet="Promotion" />
+            <End Role="BusinessUnit_Promotion" EntitySet="BusinessUnit_Promotion" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PersonInf__Accou__29221CFB" Association="CADModel.Store.FK__PersonInf__Accou__29221CFB">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="PersonInfo" EntitySet="PersonInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PersonInf__Locat__286302EC" Association="CADModel.Store.FK__PersonInf__Locat__286302EC">
+            <End Role="Location" EntitySet="Location" />
+            <End Role="PersonInfo" EntitySet="PersonInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Token__AccountRe__282DF8C2" Association="CADModel.Store.FK__Token__AccountRe__282DF8C2">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="Token" EntitySet="Token" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Account">
+          <Key>
+            <PropertyRef Name="AccountID" />
+          </Key>
+          <Property Name="AccountID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="EmailAddress" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="Password" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="IsCompany" Type="bit" />
+          <Property Name="IsPerson" Type="bit" />
+        </EntityType>
+        <EntityType Name="Attendee">
+          <Key>
+            <PropertyRef Name="AttendeeID" />
+          </Key>
+          <Property Name="AttendeeID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="TimeOfChecking" Type="datetime" Nullable="false" />
+          <Property Name="DeviceIdentification" Type="nvarchar" MaxLength="50" />
+          <Property Name="PersonInfoRefID" Type="uniqueidentifier" />
+          <Property Name="PromotionRefID" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BusinessUnit">
+          <Key>
+            <PropertyRef Name="BusinessUnitID" />
+          </Key>
+          <Property Name="BusinessUnitID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="Description" Type="nvarchar" MaxLength="250" />
+          <Property Name="ShortDescription" Type="nvarchar" MaxLength="20" />
+          <Property Name="DateOfFoundation" Type="datetime" />
+          <Property Name="AccountRefID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="LocationRefID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ProfilePicture" Type="image" />
+        </EntityType>
+        <EntityType Name="BusinessUnit_Promotion">
+          <Key>
+            <PropertyRef Name="BusinessUnitRefID" />
+            <PropertyRef Name="PromotionRefID" />
+          </Key>
+          <Property Name="BusinessUnitRefID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PromotionRefID" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BusinessUnitReview">
+          <Key>
+            <PropertyRef Name="BusinessUnitReviewID" />
+          </Key>
+          <Property Name="BusinessUnitReviewID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Comment" Type="nvarchar" MaxLength="50" />
+          <Property Name="Grade" Type="int" />
+          <Property Name="PersonInfoRefID" Type="uniqueidentifier" />
+          <Property Name="BusinessUnitRefID" Type="uniqueidentifier" />
+        </EntityType>
+        <EntityType Name="Location">
+          <Key>
+            <PropertyRef Name="LocationID" />
+          </Key>
+          <Property Name="LocationID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Country" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="City" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="ZIP" Type="varchar" Nullable="false" MaxLength="10" />
+          <Property Name="Street" Type="nvarchar" MaxLength="50" />
+          <Property Name="StreetNumber" Type="varchar" MaxLength="5" />
+          <Property Name="Letitude" Type="decimal" Nullable="false" Precision="9" Scale="6" />
+          <Property Name="Longitude" Type="decimal" Nullable="false" Precision="9" Scale="6" />
+        </EntityType>
+        <EntityType Name="PersonInfo">
+          <Key>
+            <PropertyRef Name="PersonInfoID" />
+          </Key>
+          <Property Name="PersonInfoID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="LastName" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="DateOfBirth" Type="datetime" />
+          <Property Name="AccountRefID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="LocationRefID" Type="uniqueidentifier" />
+        </EntityType>
+        <EntityType Name="Promotion">
+          <Key>
+            <PropertyRef Name="PromotionID" />
+          </Key>
+          <Property Name="PromotionID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="StartDateAndTime" Type="datetime" Nullable="false" />
+          <Property Name="EndDateAndTime" Type="datetime" Nullable="false" />
+          <Property Name="Title" Type="varbinary" Nullable="false" MaxLength="20" />
+          <Property Name="Description" Type="varchar" MaxLength="100" />
+          <Property Name="Picture" Type="image" />
+        </EntityType>
+        <EntityType Name="Token">
+          <Key>
+            <PropertyRef Name="TokenID" />
+          </Key>
+          <Property Name="TokenID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="TokenValue" Type="nvarchar" MaxLength="50" />
+          <Property Name="ExpirationDate" Type="datetime" />
+          <Property Name="AccountRefID" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Attendee__Promot__6E01572D">
+          <End Role="PersonInfo" Type="CADModel.Store.PersonInfo" Multiplicity="0..1" />
+          <End Role="Attendee" Type="CADModel.Store.Attendee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PersonInfo">
+              <PropertyRef Name="PersonInfoID" />
+            </Principal>
+            <Dependent Role="Attendee">
+              <PropertyRef Name="PersonInfoRefID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Attendee__Promot__6EF57B66">
+          <End Role="Promotion" Type="CADModel.Store.Promotion" Multiplicity="1" />
+          <End Role="Attendee" Type="CADModel.Store.Attendee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Promotion">
+              <PropertyRef Name="PromotionID" />
+            </Principal>
+            <Dependent Role="Attendee">
+              <PropertyRef Name="PromotionRefID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__BusinessU__Accou__2A164134">
+          <End Role="Account" Type="CADModel.Store.Account" Multiplicity="1" />
+          <End Role="BusinessUnit" Type="CADModel.Store.BusinessUnit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="AccountID" />
+            </Principal>
+            <Dependent Role="BusinessUnit">
+              <PropertyRef Name="AccountRefID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__BusinessU__Busin__00200768">
+          <End Role="BusinessUnit" Type="CADModel.Store.BusinessUnit" Multiplicity="1" />
+          <End Role="BusinessUnit_Promotion" Type="CADModel.Store.BusinessUnit_Promotion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BusinessUnit">
+              <PropertyRef Name="BusinessUnitID" />
+            </Principal>
+            <Dependent Role="BusinessUnit_Promotion">
+              <PropertyRef Name="BusinessUnitRefID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__BusinessU__Busin__48CFD27E">
+          <End Role="BusinessUnit" Type="CADModel.Store.BusinessUnit" Multiplicity="0..1" />
+          <End Role="BusinessUnitReview" Type="CADModel.Store.BusinessUnitReview" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BusinessUnit">
+              <PropertyRef Name="BusinessUnitID" />
+            </Principal>
+            <Dependent Role="BusinessUnitReview">
+              <PropertyRef Name="BusinessUnitRefID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__BusinessU__Locat__35BCFE0A">
+          <End Role="Location" Type="CADModel.Store.Location" Multiplicity="1" />
+          <End Role="BusinessUnit" Type="CADModel.Store.BusinessUnit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Location">
+              <PropertyRef Name="LocationID" />
+            </Principal>
+            <Dependent Role="BusinessUnit">
+              <PropertyRef Name="LocationRefID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__BusinessU__Perso__47DBAE45">
+          <End Role="PersonInfo" Type="CADModel.Store.PersonInfo" Multiplicity="0..1" />
+          <End Role="BusinessUnitReview" Type="CADModel.Store.BusinessUnitReview" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PersonInfo">
+              <PropertyRef Name="PersonInfoID" />
+            </Principal>
+            <Dependent Role="BusinessUnitReview">
+              <PropertyRef Name="PersonInfoRefID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__BusinessU__Promo__01142BA1">
+          <End Role="Promotion" Type="CADModel.Store.Promotion" Multiplicity="1" />
+          <End Role="BusinessUnit_Promotion" Type="CADModel.Store.BusinessUnit_Promotion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Promotion">
+              <PropertyRef Name="PromotionID" />
+            </Principal>
+            <Dependent Role="BusinessUnit_Promotion">
+              <PropertyRef Name="PromotionRefID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PersonInf__Accou__29221CFB">
+          <End Role="Account" Type="CADModel.Store.Account" Multiplicity="1" />
+          <End Role="PersonInfo" Type="CADModel.Store.PersonInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="AccountID" />
+            </Principal>
+            <Dependent Role="PersonInfo">
+              <PropertyRef Name="AccountRefID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PersonInf__Locat__286302EC">
+          <End Role="Location" Type="CADModel.Store.Location" Multiplicity="0..1" />
+          <End Role="PersonInfo" Type="CADModel.Store.PersonInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Location">
+              <PropertyRef Name="LocationID" />
+            </Principal>
+            <Dependent Role="PersonInfo">
+              <PropertyRef Name="LocationRefID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Token__AccountRe__282DF8C2">
+          <End Role="Account" Type="CADModel.Store.Account" Multiplicity="1" />
+          <End Role="Token" Type="CADModel.Store.Token" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="AccountID" />
+            </Principal>
+            <Dependent Role="Token">
+              <PropertyRef Name="AccountRefID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CADModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="CADEntities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="Accounts" EntityType="CADModel.Account" />
+          <EntitySet Name="Attendees" EntityType="CADModel.Attendee" />
+          <EntitySet Name="BusinessUnits" EntityType="CADModel.BusinessUnit" />
+          <EntitySet Name="BusinessUnitReviews" EntityType="CADModel.BusinessUnitReview" />
+          <EntitySet Name="Locations" EntityType="CADModel.Location" />
+          <EntitySet Name="PersonInfoes" EntityType="CADModel.PersonInfo" />
+          <EntitySet Name="Promotions" EntityType="CADModel.Promotion" />
+          <EntitySet Name="Tokens" EntityType="CADModel.Token" />
+          <AssociationSet Name="FK__Token__AccountRe__282DF8C2" Association="CADModel.FK__Token__AccountRe__282DF8C2">
+            <End Role="Account" EntitySet="Accounts" />
+            <End Role="Token" EntitySet="Tokens" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Attendee__Promot__6E01572D" Association="CADModel.FK__Attendee__Promot__6E01572D">
+            <End Role="PersonInfo" EntitySet="PersonInfoes" />
+            <End Role="Attendee" EntitySet="Attendees" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Attendee__Promot__6EF57B66" Association="CADModel.FK__Attendee__Promot__6EF57B66">
+            <End Role="Promotion" EntitySet="Promotions" />
+            <End Role="Attendee" EntitySet="Attendees" />
+          </AssociationSet>
+          <AssociationSet Name="FK__BusinessU__Busin__48CFD27E" Association="CADModel.FK__BusinessU__Busin__48CFD27E">
+            <End Role="BusinessUnit" EntitySet="BusinessUnits" />
+            <End Role="BusinessUnitReview" EntitySet="BusinessUnitReviews" />
+          </AssociationSet>
+          <AssociationSet Name="FK__BusinessU__Locat__35BCFE0A" Association="CADModel.FK__BusinessU__Locat__35BCFE0A">
+            <End Role="Location" EntitySet="Locations" />
+            <End Role="BusinessUnit" EntitySet="BusinessUnits" />
+          </AssociationSet>
+          <AssociationSet Name="FK__BusinessU__Perso__47DBAE45" Association="CADModel.FK__BusinessU__Perso__47DBAE45">
+            <End Role="PersonInfo" EntitySet="PersonInfoes" />
+            <End Role="BusinessUnitReview" EntitySet="BusinessUnitReviews" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PersonInf__Locat__286302EC" Association="CADModel.FK__PersonInf__Locat__286302EC">
+            <End Role="Location" EntitySet="Locations" />
+            <End Role="PersonInfo" EntitySet="PersonInfoes" />
+          </AssociationSet>
+          <AssociationSet Name="BusinessUnit_Promotion" Association="CADModel.BusinessUnit_Promotion">
+            <End Role="BusinessUnit" EntitySet="BusinessUnits" />
+            <End Role="Promotion" EntitySet="Promotions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__BusinessU__Accou__2A164134" Association="CADModel.FK__BusinessU__Accou__2A164134">
+            <End Role="Account" EntitySet="Accounts" />
+            <End Role="BusinessUnit" EntitySet="BusinessUnits" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PersonInf__Accou__29221CFB" Association="CADModel.FK__PersonInf__Accou__29221CFB">
+            <End Role="Account" EntitySet="Accounts" />
+            <End Role="PersonInfo" EntitySet="PersonInfoes" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Account">
+          <Key>
+            <PropertyRef Name="AccountID" />
+          </Key>
+          <Property Name="AccountID" Type="Guid" Nullable="false" />
+          <Property Name="EmailAddress" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="IsCompany" Type="Boolean" />
+          <Property Name="IsPerson" Type="Boolean" />
+          <NavigationProperty Name="Tokens" Relationship="CADModel.FK__Token__AccountRe__282DF8C2" FromRole="Account" ToRole="Token" />
+          <NavigationProperty Name="BusinessUnits" Relationship="CADModel.FK__BusinessU__Accou__2A164134" FromRole="Account" ToRole="BusinessUnit" />
+          <NavigationProperty Name="PersonInfoes" Relationship="CADModel.FK__PersonInf__Accou__29221CFB" FromRole="Account" ToRole="PersonInfo" />
+        </EntityType>
+        <EntityType Name="Attendee">
+          <Key>
+            <PropertyRef Name="AttendeeID" />
+          </Key>
+          <Property Name="AttendeeID" Type="Guid" Nullable="false" />
+          <Property Name="TimeOfChecking" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DeviceIdentification" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="PersonInfoRefID" Type="Guid" />
+          <Property Name="PromotionRefID" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="PersonInfo" Relationship="CADModel.FK__Attendee__Promot__6E01572D" FromRole="Attendee" ToRole="PersonInfo" />
+          <NavigationProperty Name="Promotion" Relationship="CADModel.FK__Attendee__Promot__6EF57B66" FromRole="Attendee" ToRole="Promotion" />
+        </EntityType>
+        <EntityType Name="BusinessUnit">
+          <Key>
+            <PropertyRef Name="BusinessUnitID" />
+          </Key>
+          <Property Name="BusinessUnitID" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Description" Type="String" MaxLength="250" Unicode="true" FixedLength="false" />
+          <Property Name="ShortDescription" Type="String" MaxLength="20" Unicode="true" FixedLength="false" />
+          <Property Name="DateOfFoundation" Type="DateTime" Precision="3" />
+          <Property Name="AccountRefID" Type="Guid" Nullable="false" />
+          <Property Name="LocationRefID" Type="Guid" Nullable="false" />
+          <Property Name="ProfilePicture" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="BusinessUnitReviews" Relationship="CADModel.FK__BusinessU__Busin__48CFD27E" FromRole="BusinessUnit" ToRole="BusinessUnitReview" />
+          <NavigationProperty Name="Location" Relationship="CADModel.FK__BusinessU__Locat__35BCFE0A" FromRole="BusinessUnit" ToRole="Location" />
+          <NavigationProperty Name="Promotions" Relationship="CADModel.BusinessUnit_Promotion" FromRole="BusinessUnit" ToRole="Promotion" />
+          <NavigationProperty Name="Account" Relationship="CADModel.FK__BusinessU__Accou__2A164134" FromRole="BusinessUnit" ToRole="Account" />
+        </EntityType>
+        <EntityType Name="BusinessUnitReview">
+          <Key>
+            <PropertyRef Name="BusinessUnitReviewID" />
+          </Key>
+          <Property Name="BusinessUnitReviewID" Type="Guid" Nullable="false" />
+          <Property Name="Comment" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Grade" Type="Int32" />
+          <Property Name="PersonInfoRefID" Type="Guid" />
+          <Property Name="BusinessUnitRefID" Type="Guid" />
+          <NavigationProperty Name="BusinessUnit" Relationship="CADModel.FK__BusinessU__Busin__48CFD27E" FromRole="BusinessUnitReview" ToRole="BusinessUnit" />
+          <NavigationProperty Name="PersonInfo" Relationship="CADModel.FK__BusinessU__Perso__47DBAE45" FromRole="BusinessUnitReview" ToRole="PersonInfo" />
+        </EntityType>
+        <EntityType Name="Location">
+          <Key>
+            <PropertyRef Name="LocationID" />
+          </Key>
+          <Property Name="LocationID" Type="Guid" Nullable="false" />
+          <Property Name="Country" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="City" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="ZIP" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
+          <Property Name="Street" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="StreetNumber" Type="String" MaxLength="5" Unicode="false" FixedLength="false" />
+          <Property Name="Letitude" Type="Decimal" Nullable="false" Precision="9" Scale="6" />
+          <Property Name="Longitude" Type="Decimal" Nullable="false" Precision="9" Scale="6" />
+          <NavigationProperty Name="BusinessUnits" Relationship="CADModel.FK__BusinessU__Locat__35BCFE0A" FromRole="Location" ToRole="BusinessUnit" />
+          <NavigationProperty Name="PersonInfoes" Relationship="CADModel.FK__PersonInf__Locat__286302EC" FromRole="Location" ToRole="PersonInfo" />
+        </EntityType>
+        <EntityType Name="PersonInfo">
+          <Key>
+            <PropertyRef Name="PersonInfoID" />
+          </Key>
+          <Property Name="PersonInfoID" Type="Guid" Nullable="false" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="DateOfBirth" Type="DateTime" Precision="3" />
+          <Property Name="AccountRefID" Type="Guid" Nullable="false" />
+          <Property Name="LocationRefID" Type="Guid" />
+          <NavigationProperty Name="Attendees" Relationship="CADModel.FK__Attendee__Promot__6E01572D" FromRole="PersonInfo" ToRole="Attendee" />
+          <NavigationProperty Name="BusinessUnitReviews" Relationship="CADModel.FK__BusinessU__Perso__47DBAE45" FromRole="PersonInfo" ToRole="BusinessUnitReview" />
+          <NavigationProperty Name="Location" Relationship="CADModel.FK__PersonInf__Locat__286302EC" FromRole="PersonInfo" ToRole="Location" />
+          <NavigationProperty Name="Account" Relationship="CADModel.FK__PersonInf__Accou__29221CFB" FromRole="PersonInfo" ToRole="Account" />
+        </EntityType>
+        <EntityType Name="Promotion">
+          <Key>
+            <PropertyRef Name="PromotionID" />
+          </Key>
+          <Property Name="PromotionID" Type="Guid" Nullable="false" />
+          <Property Name="StartDateAndTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EndDateAndTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Title" Type="Binary" Nullable="false" MaxLength="20" FixedLength="false" />
+          <Property Name="Description" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="Picture" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="Attendees" Relationship="CADModel.FK__Attendee__Promot__6EF57B66" FromRole="Promotion" ToRole="Attendee" />
+          <NavigationProperty Name="BusinessUnits" Relationship="CADModel.BusinessUnit_Promotion" FromRole="Promotion" ToRole="BusinessUnit" />
+        </EntityType>
+        <EntityType Name="Token">
+          <Key>
+            <PropertyRef Name="TokenID" />
+          </Key>
+          <Property Name="TokenID" Type="Guid" Nullable="false" />
+          <Property Name="TokenValue" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="ExpirationDate" Type="DateTime" Precision="3" />
+          <Property Name="AccountRefID" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="Account" Relationship="CADModel.FK__Token__AccountRe__282DF8C2" FromRole="Token" ToRole="Account" />
+        </EntityType>
+        <Association Name="FK__Token__AccountRe__282DF8C2">
+          <End Role="Account" Type="CADModel.Account" Multiplicity="1" />
+          <End Role="Token" Type="CADModel.Token" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="AccountID" />
+            </Principal>
+            <Dependent Role="Token">
+              <PropertyRef Name="AccountRefID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Attendee__Promot__6E01572D">
+          <End Role="PersonInfo" Type="CADModel.PersonInfo" Multiplicity="0..1" />
+          <End Role="Attendee" Type="CADModel.Attendee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PersonInfo">
+              <PropertyRef Name="PersonInfoID" />
+            </Principal>
+            <Dependent Role="Attendee">
+              <PropertyRef Name="PersonInfoRefID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Attendee__Promot__6EF57B66">
+          <End Role="Promotion" Type="CADModel.Promotion" Multiplicity="1" />
+          <End Role="Attendee" Type="CADModel.Attendee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Promotion">
+              <PropertyRef Name="PromotionID" />
+            </Principal>
+            <Dependent Role="Attendee">
+              <PropertyRef Name="PromotionRefID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__BusinessU__Busin__48CFD27E">
+          <End Role="BusinessUnit" Type="CADModel.BusinessUnit" Multiplicity="0..1" />
+          <End Role="BusinessUnitReview" Type="CADModel.BusinessUnitReview" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BusinessUnit">
+              <PropertyRef Name="BusinessUnitID" />
+            </Principal>
+            <Dependent Role="BusinessUnitReview">
+              <PropertyRef Name="BusinessUnitRefID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__BusinessU__Locat__35BCFE0A">
+          <End Role="Location" Type="CADModel.Location" Multiplicity="1" />
+          <End Role="BusinessUnit" Type="CADModel.BusinessUnit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Location">
+              <PropertyRef Name="LocationID" />
+            </Principal>
+            <Dependent Role="BusinessUnit">
+              <PropertyRef Name="LocationRefID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__BusinessU__Perso__47DBAE45">
+          <End Role="PersonInfo" Type="CADModel.PersonInfo" Multiplicity="0..1" />
+          <End Role="BusinessUnitReview" Type="CADModel.BusinessUnitReview" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PersonInfo">
+              <PropertyRef Name="PersonInfoID" />
+            </Principal>
+            <Dependent Role="BusinessUnitReview">
+              <PropertyRef Name="PersonInfoRefID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PersonInf__Locat__286302EC">
+          <End Role="Location" Type="CADModel.Location" Multiplicity="0..1" />
+          <End Role="PersonInfo" Type="CADModel.PersonInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Location">
+              <PropertyRef Name="LocationID" />
+            </Principal>
+            <Dependent Role="PersonInfo">
+              <PropertyRef Name="LocationRefID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="BusinessUnit_Promotion">
+          <End Role="BusinessUnit" Type="CADModel.BusinessUnit" Multiplicity="*" />
+          <End Role="Promotion" Type="CADModel.Promotion" Multiplicity="*" />
+        </Association>
+        <Association Name="FK__BusinessU__Accou__2A164134">
+          <End Type="CADModel.Account" Role="Account" Multiplicity="1" />
+          <End Type="CADModel.BusinessUnit" Role="BusinessUnit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="AccountID" />
+            </Principal>
+            <Dependent Role="BusinessUnit">
+              <PropertyRef Name="AccountRefID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PersonInf__Accou__29221CFB">
+          <End Type="CADModel.Account" Role="Account" Multiplicity="1" />
+          <End Type="CADModel.PersonInfo" Role="PersonInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="AccountID" />
+            </Principal>
+            <Dependent Role="PersonInfo">
+              <PropertyRef Name="AccountRefID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CADModelStoreContainer" CdmEntityContainer="CADEntities">
+          <EntitySetMapping Name="Accounts">
+            <EntityTypeMapping TypeName="CADModel.Account">
+              <MappingFragment StoreEntitySet="Account">
+                <ScalarProperty Name="AccountID" ColumnName="AccountID" />
+                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="IsCompany" ColumnName="IsCompany" />
+                <ScalarProperty Name="IsPerson" ColumnName="IsPerson" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Attendees">
+            <EntityTypeMapping TypeName="CADModel.Attendee">
+              <MappingFragment StoreEntitySet="Attendee">
+                <ScalarProperty Name="AttendeeID" ColumnName="AttendeeID" />
+                <ScalarProperty Name="TimeOfChecking" ColumnName="TimeOfChecking" />
+                <ScalarProperty Name="DeviceIdentification" ColumnName="DeviceIdentification" />
+                <ScalarProperty Name="PersonInfoRefID" ColumnName="PersonInfoRefID" />
+                <ScalarProperty Name="PromotionRefID" ColumnName="PromotionRefID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BusinessUnits">
+            <EntityTypeMapping TypeName="CADModel.BusinessUnit">
+              <MappingFragment StoreEntitySet="BusinessUnit">
+                <ScalarProperty Name="BusinessUnitID" ColumnName="BusinessUnitID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ShortDescription" ColumnName="ShortDescription" />
+                <ScalarProperty Name="DateOfFoundation" ColumnName="DateOfFoundation" />
+                <ScalarProperty Name="AccountRefID" ColumnName="AccountRefID" />
+                <ScalarProperty Name="LocationRefID" ColumnName="LocationRefID" />
+                <ScalarProperty Name="ProfilePicture" ColumnName="ProfilePicture" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BusinessUnitReviews">
+            <EntityTypeMapping TypeName="CADModel.BusinessUnitReview">
+              <MappingFragment StoreEntitySet="BusinessUnitReview">
+                <ScalarProperty Name="BusinessUnitReviewID" ColumnName="BusinessUnitReviewID" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="Grade" ColumnName="Grade" />
+                <ScalarProperty Name="PersonInfoRefID" ColumnName="PersonInfoRefID" />
+                <ScalarProperty Name="BusinessUnitRefID" ColumnName="BusinessUnitRefID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Locations">
+            <EntityTypeMapping TypeName="CADModel.Location">
+              <MappingFragment StoreEntitySet="Location">
+                <ScalarProperty Name="LocationID" ColumnName="LocationID" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="ZIP" ColumnName="ZIP" />
+                <ScalarProperty Name="Street" ColumnName="Street" />
+                <ScalarProperty Name="StreetNumber" ColumnName="StreetNumber" />
+                <ScalarProperty Name="Letitude" ColumnName="Letitude" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PersonInfoes">
+            <EntityTypeMapping TypeName="CADModel.PersonInfo">
+              <MappingFragment StoreEntitySet="PersonInfo">
+                <ScalarProperty Name="PersonInfoID" ColumnName="PersonInfoID" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="AccountRefID" ColumnName="AccountRefID" />
+                <ScalarProperty Name="LocationRefID" ColumnName="LocationRefID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Promotions">
+            <EntityTypeMapping TypeName="CADModel.Promotion">
+              <MappingFragment StoreEntitySet="Promotion">
+                <ScalarProperty Name="PromotionID" ColumnName="PromotionID" />
+                <ScalarProperty Name="StartDateAndTime" ColumnName="StartDateAndTime" />
+                <ScalarProperty Name="EndDateAndTime" ColumnName="EndDateAndTime" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Picture" ColumnName="Picture" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tokens">
+            <EntityTypeMapping TypeName="CADModel.Token">
+              <MappingFragment StoreEntitySet="Token">
+                <ScalarProperty Name="TokenID" ColumnName="TokenID" />
+                <ScalarProperty Name="TokenValue" ColumnName="TokenValue" />
+                <ScalarProperty Name="ExpirationDate" ColumnName="ExpirationDate" />
+                <ScalarProperty Name="AccountRefID" ColumnName="AccountRefID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="BusinessUnit_Promotion" TypeName="CADModel.BusinessUnit_Promotion" StoreEntitySet="BusinessUnit_Promotion">
+            <EndProperty Name="BusinessUnit">
+              <ScalarProperty Name="BusinessUnitID" ColumnName="BusinessUnitRefID" />
+            </EndProperty>
+            <EndProperty Name="Promotion">
+              <ScalarProperty Name="PromotionID" ColumnName="PromotionRefID" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
