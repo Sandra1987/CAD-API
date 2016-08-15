@@ -10,14 +10,14 @@ namespace CAD_API.Filters
     {
         public string UserName { get; set; }
         public string Password { get; set; }
-        public Guid UserId { get; set; }
+        public Guid AccountId { get; set; }
 
-        public BasicAuthenticationIdentity(string userName, string password, Guid? userId = null)
+        public BasicAuthenticationIdentity(string userName, string password, Guid? accountId = null)
             : base(userName, "Basic")
         {
             UserName = userName;
             Password = password;
-            UserId = (Guid)userId;
+            AccountId = (Guid)accountId;
         }
     }
 }

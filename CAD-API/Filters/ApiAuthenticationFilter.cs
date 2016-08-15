@@ -18,12 +18,12 @@ namespace CAD_API.Filters
         protected override bool OnAuthorizeUser(string username, string password, HttpActionContext actionContext)
         {
             IUserService userService = new UserService();
-            Guid userId = userService.Authenticate(username, password);
-            if (userId != null)
+            Guid accountId = userService.Authenticate(username, password);
+            if (accountId != null)
             {
                 var basicAuthenticationIdentity = Thread.CurrentPrincipal.Identity as BasicAuthenticationIdentity;
                 if (basicAuthenticationIdentity != null)
-                    basicAuthenticationIdentity.UserId = userId;
+                    basicAuthenticationIdentity.AccountId = accountId;
                 return true;
             }
             return false;

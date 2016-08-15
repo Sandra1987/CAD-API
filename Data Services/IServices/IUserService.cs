@@ -14,7 +14,7 @@ namespace DataServices.IServices
 
         TokenModel GenerateToken(Guid accountID);
 
-        //bool ValidateToken(string tokenId);
+        bool ValidateToken(string tokenValue);
 
         //bool Kill(string tokenId);
 

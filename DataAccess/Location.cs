@@ -21,15 +21,16 @@ namespace DataAccess
         }
     
         public System.Guid LocationID { get; set; }
-        public string Country { get; set; }
         public string City { get; set; }
         public string ZIP { get; set; }
         public string Street { get; set; }
         public string StreetNumber { get; set; }
         public decimal Letitude { get; set; }
         public decimal Longitude { get; set; }
+        public Nullable<System.Guid> CountryRefID { get; set; }
     
         public virtual ICollection<BusinessUnit> BusinessUnits { get; set; }
         public virtual ICollection<PersonInfo> PersonInfoes { get; set; }
+        public virtual Country Country { get; set; }
     }
 }

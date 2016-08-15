@@ -33,5 +33,6 @@ namespace DataAccess
         public DbSet<PersonInfo> PersonInfoes { get; set; }
         public DbSet<Promotion> Promotions { get; set; }
         public DbSet<Token> Tokens { get; set; }
+        public DbSet<Country> Countries { get; set; }
     }
 }

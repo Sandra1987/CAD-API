@@ -77,6 +77,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CADModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Country.cs">
+      <DependentUpon>CADModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DBServices\DBBusinessUnitService.cs" />
+    <Compile Include="DBServices\Interfaces\IDBBusinessUnitService.cs" />
     <Compile Include="DBServices\Interfaces\IDBUserService.cs" />
     <Compile Include="DBServices\DBUserService.cs" />
     <Compile Include="Location.cs">
@@ -117,7 +122,12 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Model\Model.csproj">
+      <Project>{a1b927ac-a8f0-4be7-80d4-4ce93eb4c46c}</Project>
+      <Name>Model</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -22,7 +22,7 @@ namespace DataServices.Services
 
         public Guid Authenticate(string email, string password)
         {
-            return service.GetUserIDByCredentials(email, password);
+            return service.GetAccountIDByCredentials(email, password);
         }
 
         public TokenModel GenerateToken(Guid accountID) {
@@ -42,6 +42,10 @@ namespace DataServices.Services
             });
 
             return token;
+        }
+
+        public bool ValidateToken(string tokenValue) {
+            return service.CheckIfTokenIsValid(tokenValue);
         }
     }
 }

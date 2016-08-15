@@ -8,8 +8,10 @@ namespace DataAccess.DBServices.Interfaces
 {
     public interface IDBUserService
     {
-        Guid GetUserIDByCredentials(string emailAddress, string password);
+        Guid GetAccountIDByCredentials(string emailAddress, string password);
 
         void SaveToken(Token token);
+
+        bool CheckIfTokenIsValid(string tokenValue);
     }
 }

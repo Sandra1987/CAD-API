@@ -1,8 +1,10 @@
 ﻿using DataAccess.DBServices.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.Entity;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,9 +12,9 @@ namespace DataAccess.DBServices
 {
     public class DBUserService : IDBUserService
     {
-        public Guid GetUserIDByCredentials(string emailAddress, string password) {
+        public Guid GetAccountIDByCredentials(string emailAddress, string password) {
             using(var context = new CADEntities()) {
-                var account = context.Accounts.Where(x => x.EmailAddress.Equals(emailAddress) && x.Password.Equals(password)).SingleOrDefault();
+                var account = context.Accounts.Where(x => x.EmailAddress.Equals(emailAddress) && x.Password.Equals(Utils.HashPassword(password))).SingleOrDefault();
                 if (account != null)
                     return account.AccountID;
             }
@@ -41,5 +43,27 @@ namespace DataAccess.DBServices
                 //Logovati
             }
         }
+
+        public bool CheckIfTokenIsValid(string tokenValue) { 
+            try
+            {
+                using (var context = new CADEntities())
+                {
+                    var  existingToken = context.Tokens.SingleOrDefault(x => x.TokenValue.Equals(tokenValue));
+                    if (existingToken == null || existingToken.ExpirationDate < DateTime.Now)
+                        return false;
+
+                    existingToken.ExpirationDate = ((DateTime)existingToken.ExpirationDate).AddSeconds(Convert.ToDouble(ConfigurationManager.AppSettings["AuthTokenExpiry"]));
+                    context.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                //Logovati
+            }
+
+            return true;
+        }
+
     }
 }
