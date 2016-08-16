@@ -1,4 +1,5 @@
-﻿using System;
+﻿using log4net;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,8 +10,6 @@ using System.Web.Routing;
 
 namespace CAD_API
 {
-    // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
-    // visit http://go.microsoft.com/?LinkId=9394801
 
     public class WebApiApplication : System.Web.HttpApplication
     {
@@ -22,6 +21,9 @@ namespace CAD_API
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+            log.Info("Loger radi.");
         }
     }
 }

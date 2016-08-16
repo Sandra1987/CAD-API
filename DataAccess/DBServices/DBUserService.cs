@@ -14,7 +14,7 @@ namespace DataAccess.DBServices
     {
         public Guid GetAccountIDByCredentials(string emailAddress, string password) {
             using(var context = new CADEntities()) {
-                var account = context.Accounts.Where(x => x.EmailAddress.Equals(emailAddress) && x.Password.Equals(Utils.HashPassword(password))).SingleOrDefault();
+                var account = context.Accounts.Where(x => x.EmailAddress.ToLower().Equals(emailAddress.ToLower()) && x.Password.Equals(Utils.HashPassword(password))).SingleOrDefault();
                 if (account != null)
                     return account.AccountID;
             }
@@ -63,6 +63,28 @@ namespace DataAccess.DBServices
             }
 
             return true;
+        }
+
+        public bool ChangePassword(string userName, string password, string newPassword)
+        {
+            try
+            {
+                using (var context = new CADEntities())
+                {
+                    string hashedPassword = Utils.HashPassword(password);
+                    var existingAccount = context.Accounts.SingleOrDefault(x => x.EmailAddress.ToLower().Equals(userName.ToLower()) && x.Password.Equals(hashedPassword));
+                    
+                    if (existingAccount == null)
+                        return false;
+
+                    existingAccount.Password = Utils.HashPassword(newPassword);
+                    context.SaveChanges();
+                    return true;
+                }
+            }
+            catch (Exception ex) {
+                return false;
+            }
         }
 
     }

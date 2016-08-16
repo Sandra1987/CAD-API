@@ -19,5 +19,7 @@ namespace DataServices.IServices
         //bool Kill(string tokenId);
 
         //bool DeleteByUserId(Guid userId);
+
+        bool ChangePassword(AccountModel account);
     }
 }

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.Entity;
 
 namespace DataAccess.DBServices
 {
@@ -17,17 +18,17 @@ namespace DataAccess.DBServices
                 using (var context = new CADEntities())
                 {
                     //First check if email already exists
-                    var existingAccount = context.Accounts.SingleOrDefault(x => x.EmailAddress.ToLower().Equals(businessUnitData.UserName.ToLower()));
+                    var existingAccount = context.Accounts.SingleOrDefault(x => x.EmailAddress.ToLower().Equals(businessUnitData.Account.Email.ToLower()));
                     if (existingAccount != null)
                         return Guid.Empty;
 
                     Account account = new Account()
                     {
                         AccountID = Guid.NewGuid(),
-                        EmailAddress = businessUnitData.UserName,
+                        EmailAddress = businessUnitData.Account.Email,
                         IsCompany = true,
                         IsPerson = false,
-                        Password = Utils.HashPassword(businessUnitData.Password)
+                        Password = Utils.HashPassword(businessUnitData.Account.Password)
                     };
 
                     var country = context.Countries.SingleOrDefault(x => x.ISOCode.ToLower().Equals(businessUnitData.Address.CountryISOCode.ToLower()));
@@ -76,6 +77,22 @@ namespace DataAccess.DBServices
                 return Guid.Empty;
                 //Logovati exception
             }
+        }
+
+        public BusinessUnit GetBusinessUnitInformation(Guid businessUnitID) { 
+            try
+            {
+                using (var context = new CADEntities())
+                {
+                    return context.BusinessUnits.Include(x => x.Location.Country).SingleOrDefault(x => x.BusinessUnitID == businessUnitID);
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+                //Logovati exception
+            }
+
         }
     }
 }

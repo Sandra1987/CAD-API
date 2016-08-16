@@ -13,10 +13,12 @@ namespace CAD_API.Controllers
     [RoutePrefix("profile")]
     public class BusinessUnitController : ApiController
     {
-        IBusinessUnitService service;
+        IBusinessUnitService businessUnitService;
+        IUserService userService;
 
         public BusinessUnitController() {
-            service = new BusinessUnitService();
+            businessUnitService = new BusinessUnitService();
+            userService = new UserService();
         }
 
         [Route("register")]
@@ -26,7 +28,7 @@ namespace CAD_API.Controllers
 
             if (ModelState.IsValid)
             {
-                var businessUnitID = service.SaveBusinessUnit(registrationData);
+                var businessUnitID = businessUnitService.SaveBusinessUnit(registrationData);
 
                 if (businessUnitID == null || businessUnitID == Guid.Empty)
                 {
@@ -38,6 +40,22 @@ namespace CAD_API.Controllers
             else {
                 return InternalServerError();
             }
+        }
+
+        [Route("changePassword")]
+        [HttpPost]
+        public HttpResponseMessage ChangePassword(AccountModel accountData) {
+            if (!userService.ChangePassword(accountData))
+                return Request.CreateResponse(HttpStatusCode.NotFound, new HttpError("Wrong email or password."));
+            else
+                return Request.CreateResponse(HttpStatusCode.OK);
+        }
+
+        [Route("profile")]
+        [HttpGet]
+        //businessUnitID treba da se proslijedi u url-u kroz query string
+        public IHttpActionResult GetBusinessUnitProfileData(Guid businessUnitID) {
+            return Ok();
         }
     }
 }

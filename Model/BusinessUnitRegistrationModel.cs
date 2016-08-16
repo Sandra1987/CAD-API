@@ -14,7 +14,7 @@ namespace Model
         public String FullDescription { get; set; }
         public DateTime DateOfFoundation { get; set; }
         public AddressModel Address { get; set; }
-        public String UserName { get; set; }
-        public String Password { get; set; }
+        public AccountModel Account { get; set; }
+
     }
 }

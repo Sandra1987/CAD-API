@@ -47,5 +47,9 @@ namespace DataServices.Services
         public bool ValidateToken(string tokenValue) {
             return service.CheckIfTokenIsValid(tokenValue);
         }
+
+        public bool ChangePassword(AccountModel account) {
+            return service.ChangePassword(account.Email, account.Password, account.NewPassword);
+        }
     }
 }

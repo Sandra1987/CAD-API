@@ -13,5 +13,7 @@ namespace DataAccess.DBServices.Interfaces
         void SaveToken(Token token);
 
         bool CheckIfTokenIsValid(string tokenValue);
+
+        bool ChangePassword(string userName, string password, string newPassword);
     }
 }

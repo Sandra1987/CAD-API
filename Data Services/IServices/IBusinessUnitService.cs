@@ -10,5 +10,7 @@ namespace DataServices.IServices
     public interface IBusinessUnitService
     {
         Guid SaveBusinessUnit(BusinessUnitRegistrationModel businessUnitData);
+
+        BusinessUnitRegistrationModel GetBusinessUnitData(Guid businessUnitID);
     }
 }

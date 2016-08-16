@@ -97,6 +97,7 @@
     <Compile Include="Token.cs">
       <DependentUpon>CADModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Utils.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

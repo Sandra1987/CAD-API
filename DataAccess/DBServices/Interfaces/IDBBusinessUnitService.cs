@@ -10,5 +10,6 @@ namespace DataAccess.DBServices.Interfaces
     public interface IDBBusinessUnitService
     {
         Guid RegisterBusinessUnit(BusinessUnitRegistrationModel businessUnitData);
+        BusinessUnit GetBusinessUnitInformation(Guid businessUnitID);
     }
 }
