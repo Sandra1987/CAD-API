@@ -8,22 +8,22 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 
+[assembly: log4net.Config.XmlConfigurator(Watch = true)]
+
 namespace CAD_API
 {
 
     public class WebApiApplication : System.Web.HttpApplication
     {
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+            
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
-
-            WebApiConfig.Register(GlobalConfiguration.Configuration);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
-            RouteConfig.RegisterRoutes(RouteTable.Routes);
-            BundleConfig.RegisterBundles(BundleTable.Bundles);
+            GlobalConfiguration.Configure(WebApiConfig.Register);
 
-            ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-            log.Info("Loger radi.");
+            log.Info("Aplication started.");
         }
     }
 }

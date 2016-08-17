@@ -10,7 +10,7 @@ using System.Web.Http;
 
 namespace CAD_API.Controllers
 {
-    [RoutePrefix("profile")]
+    [RoutePrefix("api/profile")]
     public class BusinessUnitController : ApiController
     {
         IBusinessUnitService businessUnitService;
@@ -51,11 +51,13 @@ namespace CAD_API.Controllers
                 return Request.CreateResponse(HttpStatusCode.OK);
         }
 
-        [Route("profile")]
         [HttpGet]
+        [Route("profileData")]
         //businessUnitID treba da se proslijedi u url-u kroz query string
-        public IHttpActionResult GetBusinessUnitProfileData(Guid businessUnitID) {
-            return Ok();
+        public IHttpActionResult GetBusinessUnitData(Guid businessUnitID)
+        {
+            var result = businessUnitService.GetBusinessUnitData((Guid)businessUnitID);
+            return Ok(result);
         }
     }
 }
