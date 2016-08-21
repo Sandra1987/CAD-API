@@ -18,8 +18,8 @@ namespace CAD_API.Controllers
     {
         IUserService userService;
 
-        public AuthenticationController(){
-            userService = new UserService();
+        public AuthenticationController(IUserService userService){
+            this.userService = userService;
         }
 
 

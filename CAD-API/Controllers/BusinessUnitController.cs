@@ -16,9 +16,9 @@ namespace CAD_API.Controllers
         IBusinessUnitService businessUnitService;
         IUserService userService;
 
-        public BusinessUnitController() {
-            businessUnitService = new BusinessUnitService();
-            userService = new UserService();
+        public BusinessUnitController(IBusinessUnitService businessUnitService, IUserService userService) {
+            this.businessUnitService = businessUnitService;
+            this.userService = userService;
         }
 
         [Route("register")]

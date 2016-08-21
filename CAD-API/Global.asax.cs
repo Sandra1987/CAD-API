@@ -24,6 +24,8 @@ namespace CAD_API
             GlobalConfiguration.Configure(WebApiConfig.Register);
 
             log.Info("Aplication started.");
+
+            Bootstrapper.Initialise();
         }
     }
 }

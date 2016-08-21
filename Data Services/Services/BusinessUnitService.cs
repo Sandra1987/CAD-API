@@ -15,8 +15,8 @@ namespace DataServices.Services
     {
         IDBBusinessUnitService service;
 
-        public BusinessUnitService() {
-            service = new DBBusinessUnitService();
+        public BusinessUnitService(IDBBusinessUnitService service) {
+            this.service = service;
         }
 
         public Guid SaveBusinessUnit(BusinessUnitRegistrationModel businessUnitData) {

@@ -16,8 +16,8 @@ namespace DataServices.Services
     {
         private IDBUserService service;
 
-        public UserService() {
-            service = new DBUserService(); 
+        public UserService(IDBUserService service) {
+            this.service = service; 
         }
 
         public Guid Authenticate(string email, string password)
