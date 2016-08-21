@@ -37,6 +37,7 @@
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -84,6 +85,7 @@
     <Compile Include="DBServices\Interfaces\IDBBusinessUnitService.cs" />
     <Compile Include="DBServices\Interfaces\IDBUserService.cs" />
     <Compile Include="DBServices\DBUserService.cs" />
+    <Compile Include="DependencyResolver.cs" />
     <Compile Include="Location.cs">
       <DependentUpon>CADModel.tt</DependentUpon>
     </Compile>
@@ -127,6 +129,10 @@
     <ProjectReference Include="..\Model\Model.csproj">
       <Project>{a1b927ac-a8f0-4be7-80d4-4ce93eb4c46c}</Project>
       <Name>Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Resolver\Resolver.csproj">
+      <Project>{dd12e3ae-862b-47a5-b8d5-622303904b0e}</Project>
+      <Name>Resolver</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

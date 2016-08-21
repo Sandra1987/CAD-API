@@ -11,13 +11,15 @@ namespace CAD_API.Filters
 {
     public class ApiAuthenticationFilter : GenericAuthenticationFilter
     {
-        public ApiAuthenticationFilter() { }
+        public ApiAuthenticationFilter() {
+        }
 
         public ApiAuthenticationFilter(bool isActive): base(isActive) { }
 
         protected override bool OnAuthorizeUser(string username, string password, HttpActionContext actionContext)
         {
-            IUserService userService = new UserService();
+            var userService = actionContext.ControllerContext.Configuration
+                               .DependencyResolver.GetService(typeof(IUserService)) as IUserService;
             Guid accountId = userService.Authenticate(username, password);
             if (accountId != null)
             {

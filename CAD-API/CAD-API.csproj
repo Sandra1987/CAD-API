@@ -274,13 +274,13 @@
       <Project>{f5a834fa-0f48-4b99-873a-0ab41f98bcc7}</Project>
       <Name>DataServices</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DataAccess\DataAccess.csproj">
-      <Project>{7e3f3cfb-c109-47b4-a99b-57292ee849b6}</Project>
-      <Name>DataAccess</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Model\Model.csproj">
       <Project>{a1b927ac-a8f0-4be7-80d4-4ce93eb4c46c}</Project>
       <Name>Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Resolver\Resolver.csproj">
+      <Project>{dd12e3ae-862b-47a5-b8d5-622303904b0e}</Project>
+      <Name>Resolver</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

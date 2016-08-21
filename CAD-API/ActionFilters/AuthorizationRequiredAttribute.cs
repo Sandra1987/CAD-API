@@ -16,7 +16,8 @@ namespace CAD_API.ActionFilters
         private const string token = "Token";
         public override void OnActionExecuting(HttpActionContext filterContext)
         {
-            IUserService userService = new UserService();
+            var userService = filterContext.ControllerContext.Configuration
+                                           .DependencyResolver.GetService(typeof(IUserService)) as IUserService;
 
             if (filterContext.Request.Headers.Contains(token))
             {

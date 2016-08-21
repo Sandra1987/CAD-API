@@ -3,13 +3,14 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using CAD_API.Controllers;
 using Model;
 using DataServices.Services;
+using DataServices.IServices;
 
 namespace CAD_API.Tests
 {
     [TestClass]
     public class UnitTest1
     {
-        [TestMethod]
+        /*[TestMethod]
         public void TestCompanyRegistration()
         {
             var model = new BusinessUnitRegistrationModel();
@@ -46,6 +47,6 @@ namespace CAD_API.Tests
         public void TestGetBUData() {
             var service = new BusinessUnitService();
             var result = service.GetBusinessUnitData(Guid.Parse("b121f950-7f97-4aad-b99a-5d970bb948ec"));
-        }
+        } */
     }
 }
