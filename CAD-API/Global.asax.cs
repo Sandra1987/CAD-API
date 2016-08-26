@@ -15,7 +15,7 @@ namespace CAD_API
 
     public class WebApiApplication : System.Web.HttpApplication
     {
-        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
             
         protected void Application_Start()
         {
@@ -23,7 +23,7 @@ namespace CAD_API
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             GlobalConfiguration.Configure(WebApiConfig.Register);
 
-            log.Info("Aplication started.");
+            logger.Info("Aplication started.");
 
             Bootstrapper.Initialise();
         }

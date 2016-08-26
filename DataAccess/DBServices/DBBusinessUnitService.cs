@@ -11,8 +11,9 @@ namespace DataAccess.DBServices
 {
     public class DBBusinessUnitService : IDBBusinessUnitService
     {
+        private static readonly log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType); 
+
         public Guid RegisterBusinessUnit(BusinessUnitRegistrationModel businessUnitData) { 
-            //ako email vec postoji ne registrovati model
             try
             {
                 using (var context = new CADEntities())
@@ -74,8 +75,47 @@ namespace DataAccess.DBServices
                 }
             }
             catch (Exception ex) {
-                return Guid.Empty;
-                //Logovati exception
+                //return Guid.Empty;
+                logger.Error("Exception occured in RegisterBusinessUnit method.", ex);
+                throw;
+            }
+        }
+
+        public void ChangeBusinessUnitInformation(BusinessUnitRegistrationModel businessUnitData)
+        {
+            try {
+                using(var context = new CADEntities()){
+                    var country = context.Countries.SingleOrDefault(x => x.ISOCode.ToLower().Equals(businessUnitData.Address.CountryISOCode.ToLower()));
+                    if (country == null)
+                    {
+                        country = new Country()
+                        {
+                            CountryID = Guid.NewGuid(),
+                            ISOCode = businessUnitData.Address.CountryISOCode,
+                            Name = businessUnitData.Address.Country
+                        };
+                    }
+
+                    var businessUnit = context.BusinessUnits.Include(x => x.Location).Single(x => x.BusinessUnitID == businessUnitData.BusinessUnitID);
+                    businessUnit.DateOfFoundation = businessUnitData.DateOfFoundation;
+                    businessUnit.Description = businessUnitData.FullDescription;
+                    businessUnit.Name = businessUnitData.Name;
+
+                    businessUnit.Location.City = businessUnitData.Address.City;
+                    businessUnit.Location.Letitude = businessUnitData.Address.Latitude;
+                    businessUnit.Location.LocationID = Guid.NewGuid();
+                    businessUnit.Location.Longitude = businessUnitData.Address.Longitude;
+                    businessUnit.Location.Street = businessUnitData.Address.StreetName;
+                    businessUnit.Location.StreetNumber = businessUnitData.Address.StreetNumber;
+                    businessUnit.Location.ZIP = businessUnitData.Address.ZIP;
+
+                    businessUnit.Location.Country = country;
+
+                    context.SaveChanges();
+                }
+            } catch(Exception ex) {
+                logger.Error("Exception occured in ChangeBusinessUnitInformation method.", ex);
+                throw;
             }
         }
 
@@ -89,8 +129,8 @@ namespace DataAccess.DBServices
             }
             catch (Exception ex)
             {
-                return null;
-                //Logovati exception
+                logger.Error("Exception occured in GetBusinessUnitInformation method.", ex);
+                throw;
             }
 
         }
