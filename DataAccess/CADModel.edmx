@@ -155,7 +155,7 @@
           <Property Name="PromotionID" Type="uniqueidentifier" Nullable="false" />
           <Property Name="StartDateAndTime" Type="datetime" Nullable="false" />
           <Property Name="EndDateAndTime" Type="datetime" Nullable="false" />
-          <Property Name="Title" Type="varbinary" Nullable="false" MaxLength="20" />
+          <Property Name="Title" Type="varchar" Nullable="false" MaxLength="50" />
           <Property Name="Description" Type="varchar" MaxLength="100" />
           <Property Name="Picture" Type="image" />
         </EntityType>
@@ -463,7 +463,7 @@
           <Property Name="PromotionID" Type="Guid" Nullable="false" />
           <Property Name="StartDateAndTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="EndDateAndTime" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Title" Type="Binary" Nullable="false" MaxLength="20" FixedLength="false" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
           <Property Name="Description" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
           <Property Name="Picture" Type="Binary" MaxLength="Max" FixedLength="false" />
           <NavigationProperty Name="Attendees" Relationship="CADModel.FK__Attendee__Promot__6EF57B66" FromRole="Promotion" ToRole="Attendee" />

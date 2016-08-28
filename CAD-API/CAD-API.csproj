@@ -152,6 +152,7 @@
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="Controllers\AuthenticationController.cs" />
     <Compile Include="Controllers\BusinessUnitController.cs" />
+    <Compile Include="Controllers\LandingPageController.cs" />
     <Compile Include="Filters\ApiAuthenticationFilter.cs" />
     <Compile Include="Filters\BasicAuthenticationIdentity.cs" />
     <Compile Include="Filters\GenericAuthenticationFilter.cs" />

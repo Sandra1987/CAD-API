@@ -13,7 +13,7 @@ using System.Web.Http;
 namespace CAD_API.Controllers
 {
     [ApiAuthenticationFilter]
-    [RoutePrefix("login")]
+    [RoutePrefix("api/login")]
     public class AuthenticationController : ApiController
     {
         IUserService userService;

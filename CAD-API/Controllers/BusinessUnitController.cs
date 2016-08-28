@@ -36,7 +36,8 @@ namespace CAD_API.Controllers
                     return Unauthorized();
                 }
 
-                return Ok(businessUnitID);
+                return Ok();
+                //return Created(businessUnitID);
             }
             else {
                 return InternalServerError();
@@ -53,11 +54,26 @@ namespace CAD_API.Controllers
         }
 
         [HttpGet]
-        [Route("profileData")]
+        [Route("getRegistrationData")]
         //businessUnitID treba da se proslijedi u url-u kroz query string
         public IHttpActionResult GetBusinessUnitData(Guid businessUnitID)
         {
             var result = businessUnitService.GetBusinessUnitData((Guid)businessUnitID);
+            return Ok(result);
+        }
+
+        [HttpPost]
+        [Route("savePromotion")]
+        public HttpResponseMessage SavePromotion(PromotionModel promotion)
+        {
+            businessUnitService.SavePromotion(promotion);
+            return Request.CreateResponse(HttpStatusCode.Created);
+        }
+
+        [HttpGet]
+        [Route("getProfileData")]
+        public IHttpActionResult GetBusinessUnitProfileData(Guid businessUnitID) {
+            var result = businessUnitService.GetBusinessUnitProfileData(businessUnitID);
             return Ok(result);
         }
     }
